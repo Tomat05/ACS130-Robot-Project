@@ -17,17 +17,17 @@ void toggle_led(unsigned char led, bool state) {
     }
 }
 
-void startup_flash(void) {
-    for (unsigned char i = 0; i < 3; i++) {
+void flash(unsigned char amount, unsigned char interval) {
+    for (unsigned char i = 0; i < amount; i++) {
         toggle_led(1, true);
         toggle_led(2, true);
         toggle_led(3, true);
         toggle_led(4, true);
-        delay10ms(50);
+        delay10ms(interval);
         toggle_led(1, false);
         toggle_led(2, false);
         toggle_led(3, false);
         toggle_led(4, false);
-        delay10ms(50);
+        delay10ms(interval);
     }
 }

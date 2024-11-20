@@ -24,19 +24,7 @@ void main(void) {
     setup_pwm();
     setup_adc();
     
-    startup_flash();
-    
-    forwards(255);
-    delay10ms(100);
-    backwards(255);
-    delay10ms(100);
-    stop();
-    delay10ms(100);
-    left(255);
-    delay10ms(100);
-    right(255);
-    delay10ms(100);
-    stop();
+    flash(3, 50);
     while(1);
     return;
 }

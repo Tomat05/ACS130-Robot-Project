@@ -19,5 +19,5 @@
 #define LED4 LATBbits.LB5
 
 void toggle_led(unsigned char led, bool state);
-void startup_flash(void);
+void flash(unsigned char amount, unsigned char interval); // Interval is in 10s of ms
 #endif
