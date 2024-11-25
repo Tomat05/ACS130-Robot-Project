@@ -3,6 +3,8 @@
  * Author: Thomas Wetherill
  *
  * Created on 12 November 2024, 17:23
+ * 
+ * Functions and definitions relating to setting up the various registers on the chip
  */
 
 #ifndef SETUP_H

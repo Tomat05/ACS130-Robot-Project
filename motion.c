@@ -7,7 +7,7 @@
 
 #include "motion.h"
 
-void l_speed(unsigned char speed, bool backwards) {
+void l_speed(short_t speed, bool backwards) {
     CCPR1L = speed;
     if (backwards) {
         M_LEFT_BACK = 1;
@@ -18,7 +18,7 @@ void l_speed(unsigned char speed, bool backwards) {
     }
 }
 
-void r_speed(unsigned char speed, bool backwards) {
+void r_speed(short_t speed, bool backwards) {
     CCPR2L = speed;
     if (backwards) {
         M_RIGHT_BACK = 1;
@@ -29,22 +29,22 @@ void r_speed(unsigned char speed, bool backwards) {
     }
 }
 
-void forwards(unsigned char speed) {
+void forwards(short_t speed) {
     l_speed(speed, false);
     r_speed(speed, false);
 }
 
-void backwards(unsigned char speed) {
+void backwards(short_t speed) {
     l_speed(speed, true);
     r_speed(speed, true);
 }
 
-void left(unsigned char speed) {
+void left(short_t speed) {
     l_speed(speed, true);
     r_speed(speed, false);
 }
 
-void right(unsigned char speed) {
+void right(short_t speed) {
     l_speed(speed, false);
     r_speed(speed, true);
 }

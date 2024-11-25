@@ -3,6 +3,8 @@
  * Author: Thomas Wetherill
  *
  * Created on 12 November 2024, 17:23
+ * 
+ * The implementation of `setup.h`
  */
 
 #include "setup.h"
@@ -19,7 +21,7 @@ void setup_io(void) {
     LATC = 0;
 }
 
-void setup_pwm() {
+void setup_pwm(void) {
     PR2 = 255; // Set period of PW
     T2CON = 0b00000111; // Timer 2 on, Prescaler = 1
     

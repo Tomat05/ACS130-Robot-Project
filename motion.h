@@ -11,6 +11,8 @@
 #include <xc.h>
 #include <stdbool.h>
 
+#include "misc.h"
+
 #define M_RIGHT_BACK LATBbits.LB0
 #define M_RIGHT_FORWARD LATBbits.LB1
 
@@ -20,13 +22,13 @@
 #define LEFT 0
 #define RIGHT 1
 
-void l_speed(unsigned char speed, bool backwards);
-void r_speed(unsigned char speed, bool backwards);
+void l_speed(short_t speed, bool backwards);
+void r_speed(short_t speed, bool backwards);
 
-void forwards(unsigned char speed);
-void backwards(unsigned char speed);
-void left(unsigned char speed);
-void right(unsigned char speed);
+void forwards(short_t speed);
+void backwards(short_t speed);
+void left(short_t speed);
+void right(short_t speed);
 void stop(void);
 
 #endif	/* MOTION_H */

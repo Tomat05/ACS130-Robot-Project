@@ -3,15 +3,23 @@
  * Author: Thomas Wetherill
  *
  * Created on 12 November 2024, 18:02
+ * 
+ * Functions and definitions relating to the sensors on the robot
  */
 
 #ifndef SENSING_H
 #define	SENSING_H
 
-#define RIGHT_SENSOR 1
-#define LEFT_SENSOR 0
+#include <stdbool.h>
 
-int read_adc(unsigned char sensor);
+#include "misc.h"
+
+#define RIGHT_IR 0b0001
+#define LEFT_IR 0b0000
+
+int read_adc(short_t sensor);
+
+short_t detect_obstacle(int threshold);
 
 #endif	/* SENSING_H */
 

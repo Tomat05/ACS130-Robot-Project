@@ -1,0 +1,20 @@
+/* 
+ * File:   timing.h
+ * Author: Thomas Wetherill
+ *
+ * Created on 12 November 2024, 11:38
+ * 
+ * Functions for timing things
+ */
+
+#ifndef TOOLS_H
+#define	TOOLS_H
+
+#include "misc.h"
+
+// This lives here because if I try to put it anywhere else the compiler throws a fit
+#define _XTAL_FREQ 10000000
+
+void delay10ms(short_t ms);
+
+#endif

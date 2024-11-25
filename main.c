@@ -3,6 +3,8 @@
  * Author: Thomas Wetherill
  *
  * Created on 12 November 2024, 11:25
+ * 
+ * The entry-point and main execution loop of the programme
  */
 
 
@@ -18,6 +20,10 @@
 #include "led.h"
 #include "setup.h"
 #include "motion.h"
+#include "sensing.h"
+#include "misc.h"
+
+#define OBSTACLE_THRESHOLD 800
 
 void main(void) {
     setup_io();
@@ -25,6 +31,11 @@ void main(void) {
     setup_adc();
     
     flash(3, 50);
-    while(1);
+    
+    for (;;) {
+        short_t obstacles = detect_obstacle(OBSTACLE_THRESHOLD);
+        toggle_led(LED_LL, (obstacles & 0b10));
+        toggle_led(LED_RR, (obstacles & 0b01));
+    }
     return;
 }
