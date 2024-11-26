@@ -10,7 +10,7 @@
 #ifndef TOOLS_H
 #define	TOOLS_H
 
-#include "misc.h"
+#include "utils.h"
 
 // This lives here because if I try to put it anywhere else the compiler throws a fit
 #define _XTAL_FREQ 10000000

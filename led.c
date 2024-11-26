@@ -9,26 +9,19 @@
 
 #include "led.h"
 
-void toggle_led(short_t led, bool state) {
-    switch (led) {
-        case 1: LATBbits.LB2 = state; break;
-        case 2: LATBbits.LB3 = state; break;
-        case 3: LATBbits.LB4 = state; break;
-        case 4: LATBbits.LB5 = state; break;
-    }
+
+void _set_leds(short_t states) {
+    LATBbits.LB2 = (bool)(states & LED_LL);
+    LATBbits.LB3 = (bool)(states & LED_L);
+    LATBbits.LB4 = (bool)(states & LED_R);
+    LATBbits.LB5 = (bool)(states & LED_RR);
 }
 
-void flash(short_t amount, short_t interval) {
-    for (unsigned char i = 0; i < amount; i++) {
-        toggle_led(1, true);
-        toggle_led(2, true);
-        toggle_led(3, true);
-        toggle_led(4, true);
+void flash(short_t times, short_t interval) {
+    for (short_t i = 0; i < times; i++) {
+        _set_leds(0b1111);
         delay10ms(interval);
-        toggle_led(1, false);
-        toggle_led(2, false);
-        toggle_led(3, false);
-        toggle_led(4, false);
+        _set_leds(0b0000);
         delay10ms(interval);
     }
 }

@@ -20,16 +20,12 @@ int read_adc(short_t sensor) {
     return ((ADRESH << 8) + ADRESL); // Concatenate returned values into one 16b number
 }
 
-// Return which, if any, sensors detected an obstacle within the threshold
-short_t detect_obstacle(int threshold) {
-    short_t result = 0b00;
-    
-    if (read_adc(LEFT_IR) > threshold) {
-        result |= 0b01; // Set the flag for the left sensor
+// Return which, if either, of the IR sensors detected an obstacle within the threshold
+void detect_obstacle(State_t* state, int threshold) {
+    if (read_adc(LEFT) > threshold) {
+        state->IR_L = true;
     }
-    if (read_adc(RIGHT_IR) > threshold) {
-        result |= 0b10; // Set the flag for the right sensor
+    if (read_adc(RIGHT) > threshold) {
+        state->IR_R = true;
     }
-    
-    return result;
 }

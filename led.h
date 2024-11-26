@@ -12,16 +12,21 @@
 
 #include <xc.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdarg.h>
 
 #include "timing.h"
-#include "misc.h"
+#include "utils.h"
 
-// LEDs as viewed from the LHS of the robot
-#define LED_LL 1
-#define LED_L 2
-#define LED_R 3
-#define LED_RR 4
+//// LEDs as viewed from the LHS of the robot
+#define LED_LL 0b1000
+#define LED_L 0b0100
+#define LED_R 0b0010
+#define LED_RR 0b0001
 
-void toggle_led(short_t led, bool state);
-void flash(short_t amount, short_t interval); // Interval is in 10s of ms
+void _set_leds(short_t leds);
+void flash(short_t times, short_t interval); // Interval is in 10s of ms
+
+#define set_leds(ll, rl, lr, rr) (_set_leds((ll << 3) | (rl << 2) | (rl << 1) | rr))
+
 #endif

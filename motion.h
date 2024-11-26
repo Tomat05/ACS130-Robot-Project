@@ -11,7 +11,8 @@
 #include <xc.h>
 #include <stdbool.h>
 
-#include "misc.h"
+#include "utils.h"
+#include "timing.h"
 
 #define M_RIGHT_BACK LATBbits.LB0
 #define M_RIGHT_FORWARD LATBbits.LB1
@@ -30,6 +31,8 @@ void backwards(short_t speed);
 void left(short_t speed);
 void right(short_t speed);
 void stop(void);
+
+void avoid_obstacle(short_t speed);
 
 #endif	/* MOTION_H */
 

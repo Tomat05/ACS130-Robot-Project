@@ -55,3 +55,20 @@ void stop(void) {
     M_LEFT_BACK = 1;
     M_LEFT_FORWARD = 1;
 }
+
+void avoid_obstacle(short_t speed) {
+    backwards(speed);
+    delay10ms(25);
+    
+    left(speed);
+    delay10ms(25);
+    
+    forwards(speed);
+    delay10ms(50);
+    
+    right(speed);
+    delay10ms(25);
+    
+    forwards(speed);
+    delay10ms(25);
+}
