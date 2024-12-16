@@ -20,12 +20,12 @@ typedef unsigned char short_t;
 
 typedef union {
     struct {
-        bool IR_L       :1;
-        bool IR_R       :1;
-        bool BE_L       :1;
-        bool BE_R       :1;
-        bool EN_L       :1;
-        bool EN_R       :1;
+        short_t IR_L    :1;
+        short_t IR_R    :1;
+        short_t BE_L    :1;
+        short_t BE_R    :1;
+        short_t EN_L    :1;
+        short_t EN_R    :1;
     };
     struct {
         short_t IR      :2;

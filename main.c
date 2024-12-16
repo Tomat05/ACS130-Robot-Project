@@ -17,6 +17,8 @@
 #pragma config LVP = OFF   //Low voltage programming disabled
 #pragma config PWRT = ON   //Power up timer on
 
+#define DEBUG_SENSORS
+
 #include "led.h"
 #include "setup.h"
 #include "motion.h"
@@ -27,6 +29,8 @@
 #define TURN_SPEED 128
 #define FORWARD_SPEED 192
 
+#define DISABLE_MOVEMENT
+
 void main(void) {
     setup_io();
     setup_pwm();
@@ -35,19 +39,24 @@ void main(void) {
     flash(3, 50);
     
     Sensors_t sensors;
-    sensors.all = 0; // Initialise values of sensors falsy
     
     for (;;) {
+        sensors.all = 0;
         detect_obstacle(&sensors, OBSTACLE_THRESHOLD);
         detect_beacon(&sensors);
         
         set_leds(sensors.IR_L, sensors.BE_L, sensors.BE_R, sensors.IR_R);
+        
+// For debugging
+#ifndef DISABLE_MOVEMENT
         
         if (sensors.IR) {
 //            avoid_obstacle(TURN_SPEED);
         }
         
         switch (sensors.BEACON) {
+            // Arbitrarily picked right as direction to turn if neither sensor
+            // detects the beacon
             case 0b00:
             case 0b10:
                 right(TURN_SPEED);
@@ -59,6 +68,8 @@ void main(void) {
                 forwards(FORWARD_SPEED);
                 break;
         }
+        
+#endif /* DISABLE_MOVEMENT */
     }
     return;
 }

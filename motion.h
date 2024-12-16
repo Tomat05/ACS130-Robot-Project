@@ -35,5 +35,6 @@ void stop(void);
 void avoid_obstacle(short_t speed);
 void find_beacon(void);
 
+
 #endif	/* MOTION_H */
 
