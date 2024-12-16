@@ -27,6 +27,12 @@
 void _set_leds(short_t leds);
 void flash(short_t times, short_t interval); // Interval is in 10s of ms
 
-#define set_leds(ll, lr, rl, rr) (_set_leds((ll << 3) | (lr << 2) | (rl << 1) | rr))
+// Allow us to set the LEDs using a single short_t rather than the extra memory of using 4
+// If we don't cast it all to bools it doesn't work and I'm not sure why but if it works it works
+#define set_leds(ll, lr, rl, rr) (_set_leds( \
+    ((bool)ll << 3) | \
+    ((bool)lr << 2) | \
+    ((bool)rl << 1) | \
+    (bool)rr))
 
 #endif

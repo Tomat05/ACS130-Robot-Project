@@ -16,22 +16,23 @@
 typedef unsigned char short_t;
 
 // For storing if the beacon is detected and if an obstacle is detected in a convenient way
+// and because I wanted to faff around with bitfields
+
 typedef union {
     struct {
-        short_t IR_L    :1;
-        short_t IR_R    :1;
-        short_t BE_L    :1;
-        short_t BE_R    :1;
-        short_t EN_L    :1;
-        short_t EN_R    :1;
+        bool IR_L       :1;
+        bool IR_R       :1;
+        bool BE_L       :1;
+        bool BE_R       :1;
+        bool EN_L       :1;
+        bool EN_R       :1;
     };
     struct {
         short_t IR      :2;
-        short_t BE      :2;
-        short_t EN      :2;
+        short_t BEACON  :2;
+        short_t ENCODER :2;
     };
     short_t all;
 } Sensors_t;
 
 #endif	/* MISC_H */
-

@@ -24,6 +24,8 @@
 #include "utils.h"
 
 #define OBSTACLE_THRESHOLD 400
+#define TURN_SPEED 128
+#define FORWARD_SPEED 192
 
 void main(void) {
     setup_io();
@@ -33,21 +35,30 @@ void main(void) {
     flash(3, 50);
     
     Sensors_t sensors;
+    sensors.all = 0; // Initialise values of sensors falsy
     
     for (;;) {
-        sensors.all = 0;
         detect_obstacle(&sensors, OBSTACLE_THRESHOLD);
         detect_beacon(&sensors);
         
-//        set_leds(sensors.IR_L, sensors.BE_L, sensors.BE_R, sensors.IR_R);
-        _set_leds(sensors.all);
+        set_leds(sensors.IR_L, sensors.BE_L, sensors.BE_R, sensors.IR_R);
         
         if (sensors.IR) {
-//            avoid_obstacle(96);
-//            stop();
+//            avoid_obstacle(TURN_SPEED);
         }
-//            
-//        forwards(96);
+        
+        switch (sensors.BEACON) {
+            case 0b00:
+            case 0b10:
+                right(TURN_SPEED);
+                break;
+            case 0b01:
+                left(TURN_SPEED);
+                break;
+            default:
+                forwards(FORWARD_SPEED);
+                break;
+        }
     }
     return;
 }
