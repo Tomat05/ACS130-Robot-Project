@@ -31,7 +31,7 @@ typedef union {
         short_t EN      :2;
     };
     short_t all;
-} State_t;
+} Sensors_t;
 
 #endif	/* MISC_H */
 

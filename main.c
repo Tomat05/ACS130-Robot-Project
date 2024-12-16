@@ -23,7 +23,7 @@
 #include "sensing.h"
 #include "utils.h"
 
-#define OBSTACLE_THRESHOLD 750
+#define OBSTACLE_THRESHOLD 400
 
 void main(void) {
     setup_io();
@@ -32,20 +32,22 @@ void main(void) {
     
     flash(3, 50);
     
-    State_t state;
+    Sensors_t sensors;
     
     for (;;) {
-        state.all = 0;
-        detect_obstacle(&state, OBSTACLE_THRESHOLD);
-//        TODO: Detect beacon
+        sensors.all = 0;
+        detect_obstacle(&sensors, OBSTACLE_THRESHOLD);
+        detect_beacon(&sensors);
         
-        set_leds(state.IR_L, state.BE_L, state.BE_R, state.IR_R);
+//        set_leds(sensors.IR_L, sensors.BE_L, sensors.BE_R, sensors.IR_R);
+        _set_leds(sensors.all);
         
-//        if (state.IR) {
-//            avoid_obstacle(64);
-//        }
+        if (sensors.IR) {
+//            avoid_obstacle(96);
+//            stop();
+        }
 //            
-//        forwards(64);
+//        forwards(96);
     }
     return;
 }

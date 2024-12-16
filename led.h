@@ -27,6 +27,6 @@
 void _set_leds(short_t leds);
 void flash(short_t times, short_t interval); // Interval is in 10s of ms
 
-#define set_leds(ll, rl, lr, rr) (_set_leds((ll << 3) | (rl << 2) | (rl << 1) | rr))
+#define set_leds(ll, lr, rl, rr) (_set_leds((ll << 3) | (lr << 2) | (rl << 1) | rr))
 
 #endif

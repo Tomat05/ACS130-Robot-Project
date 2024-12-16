@@ -58,17 +58,17 @@ void stop(void) {
 
 void avoid_obstacle(short_t speed) {
     backwards(speed);
-    delay10ms(25);
+    delay10ms(200);
     
     left(speed);
-    delay10ms(25);
+    delay10ms(64);
     
     forwards(speed);
-    delay10ms(50);
+    delay10ms(200);
     
     right(speed);
-    delay10ms(25);
+    delay10ms(64);
     
     forwards(speed);
-    delay10ms(25);
+    delay10ms(200);
 }

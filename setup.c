@@ -11,14 +11,18 @@
 
 void setup_io(void) {
     // Set I/O
-    TRISA = 0b00000000;
+    TRISA = 0b00001111;
     TRISB = 0b00000000;
     TRISC = 0b00000000;
     
-    // Set all outputs to 0 just in case
+    // Set all i/o to 0 just in case
     LATA = 0;
     LATB = 0;
     LATC = 0;
+    
+    PORTA = 0;
+    PORTB = 0;
+    PORTC = 0;
 }
 
 void setup_pwm(void) {
@@ -31,6 +35,7 @@ void setup_pwm(void) {
 
 void setup_adc(void) {
     ADCON2bits.ADCS = 0b010; // Set conversion clock
+    ADCON2bits.ADFM = 1;
     ADCON1 = 0b00001101; // Set ref voltage & set AN0, AN1 to A/D
     ADCON0bits.ADON = 1; // Turn on ADC
 }
