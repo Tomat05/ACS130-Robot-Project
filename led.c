@@ -1,6 +1,6 @@
 /*
  * File:   led.c
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 11:28
  * 

@@ -1,6 +1,6 @@
 /* 
  * File:   motion.h
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 17:21
  */
@@ -14,6 +14,7 @@
 #include "utils.h"
 #include "timing.h"
 #include "sensing.h"
+#include "led.h"
 
 #define M_RIGHT_BACK LATBbits.LB0
 #define M_RIGHT_FORWARD LATBbits.LB1
@@ -29,12 +30,12 @@ void r_speed(short_t speed, bool backwards);
 
 void forwards(short_t speed);
 void backwards(short_t speed);
-void left(short_t speed);
-void right(short_t speed);
+void turn(short_t speed, bool left);
+void turn_90(Encoder_t* encoder, bool left);
 void stop(void);
 
-void avoid_obstacle(short_t speed);
-void find_beacon(void);
+void avoid_obstacle(Sensors_t* sensors);
+void at_beacon(Sensors_t* sensors);
 
 void test(Encoder_t* encoder);
 

@@ -1,6 +1,6 @@
 /* 
  * File:   sensing.h
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 18:02
  * 
@@ -36,14 +36,13 @@ void detect_beacon(Beacon_t* beacons) {
     beacons->right = !(PORTAbits.RA3);
 }
 
-void detect_encoder_change(Encoder_t* encoders) {
-//    encoders->left = (encoders->left + PORTCbits.RC0) % 255;
-//    encoders->right = (encoders->right + PORTCbits.RC5) % 255;
-    
-    if (PORTCbits.RC0 != encoders->left) {
-        encoders->left = (encoders->left + 1) % UINT16_MAX;
+void detect_encoder_change(Encoder_t* encoders) {    
+    if (PORTCbits.RC0 != encoders->l_state) {
+        encoders->left = (encoders->left + 1) % (HALF_ROTATION + 1);
+        encoders->l_state = PORTCbits.RC0;
     }
-    if (PORTCbits.RC5 != encoders->right) {
-        encoders->right = (encoders->right + 1) % UINT16_MAX;
+    if (PORTCbits.RC5 != encoders->r_state) {
+        encoders->right = (encoders->right + 1) % (HALF_ROTATION + 1);
+        encoders->r_state = PORTCbits.RC5;
     }
 }

@@ -1,6 +1,6 @@
 /* 
  * File:   sensing.h
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 18:02
  * 
@@ -18,6 +18,8 @@
 // The left and right IR sensors ADN0 and ADN1
 #define LEFT 0
 #define RIGHT 1
+
+#define HALF_ROTATION 192
 
 int read_adc(short_t sensor);
 

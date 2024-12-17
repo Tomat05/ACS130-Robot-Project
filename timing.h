@@ -1,6 +1,6 @@
 /* 
  * File:   timing.h
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 11:38
  * 
@@ -15,6 +15,6 @@
 // This lives here because if I try to put it anywhere else the compiler throws a fit
 #define _XTAL_FREQ 10000000
 
-void delay10ms(short_t ms);
+void delay10ms(short_t multiplier);
 
 #endif

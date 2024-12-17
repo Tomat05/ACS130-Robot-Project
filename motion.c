@@ -1,6 +1,6 @@
 /* 
  * File:   motion.c
- * Author: Thomas Wetherill
+ * Author: Thomas Wetherill, Matt Smith, Josiah de Grey-Warter
  *
  * Created on 12 November 2024, 17:20
  */
@@ -39,14 +39,24 @@ void backwards(short_t speed) {
     r_speed(speed, true);
 }
 
-void left(short_t speed) {
-    l_speed(speed, true);
-    r_speed(speed, false);
+void turn(short_t speed, bool right) {
+    l_speed(speed, !right);
+    r_speed(speed, right);
 }
 
-void right(short_t speed) {
-    l_speed(speed, false);
-    r_speed(speed, true);
+void turn_90(Sensors_t* sensors, bool right) {
+    turn(TURN_SPEED, right);
+    while (sensors->encoder.right < HALF_ROTATION && sensors->encoder.left < HALF_ROTATION) {
+        detect_encoder_change(&sensors->encoder);
+#if defined(FINDING_BEACON)
+        // If at any point during the rotation, one or both of the beacon sensors
+        // are off, we know that we aren't right next to the beacon.
+        if (sensors->ir.value != 0b11) {
+            return; // TODO: THIS IS STUPID AND DOESN'T WORK
+        }
+#endif
+    }
+    sensors->encoder.left = sensors->encoder.right = 0;
 }
 
 void stop(void) {
@@ -56,27 +66,28 @@ void stop(void) {
     M_LEFT_FORWARD = 1;
 }
 
-void avoid_obstacle(short_t speed) {
-    backwards(speed);
-    delay10ms(200);
+void avoid_obstacle(Sensors_t* sensors) {
+    backwards(FORWARD_SPEED / 2);
+    delay10ms(128);
     
-    left(speed);
-    delay10ms(64);
+    at_beacon(sensors);
     
-    forwards(speed);
-    delay10ms(200);
+    forwards(FORWARD_SPEED / 2);
+    delay10ms(128);
     
-    right(speed);
-    delay10ms(64);
+    turn_90(&sensors->encoder, false);
     
-    forwards(speed);
-    delay10ms(200);
+    forwards(FORWARD_SPEED);
+    delay10ms(50);
 }
 
-void test(Encoder_t* encoder) {
-    left(64);
-    while (encoder->left < 8192) {
-        detect_encoder_change(encoder);
+void at_beacon(Sensors_t* sensors) {
+    for (short_t i = 0; i < 3; i++) {
+#define FINDING_BEACON
+        turn_90(sensors, RIGHT);
+#undef FINDING_BEACON
     }
     stop();
+    flash(3, 50);
+    for (;;); // Do nothing indefinitely
 }
