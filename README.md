@@ -15,5 +15,5 @@
 
 | Type | Size (bits) | Arithmetic Type |
 | :---: | :---: | :---: |
-| `short_t` | 8 bits      | unsigned character |
+| `short_t` | 8 bits      | unsigned integer |
 | `uint_t` | 16 bits      | unsigned integer |
