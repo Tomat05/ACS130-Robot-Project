@@ -72,3 +72,11 @@ void avoid_obstacle(short_t speed) {
     forwards(speed);
     delay10ms(200);
 }
+
+void test(Encoder_t* encoder) {
+    left(64);
+    while (encoder->left < 8192) {
+        detect_encoder_change(encoder);
+    }
+    stop();
+}

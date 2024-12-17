@@ -8,6 +8,7 @@
  */
 
 #include <xc.h>
+#include <limits.h>
 
 #include "sensing.h"
 
@@ -17,22 +18,32 @@ int read_adc(short_t sensor) {
     ADCON0bits.GO = 1;
     
     while (ADCON0bits.GO); // Do nothing for the duration of the conversion
-//    _set_leds((((ADRESH << 8) + ADRESL) / 64) - 1);
     return ((ADRESH << 8) + ADRESL); // Concatenate returned values into one 16b number
 }
 
 // Return which, if either, of the IR sensors detected an obstacle within the threshold
-void detect_obstacle(Sensors_t* sensors, int threshold) {
+void detect_obstacle(Ir_t* ir, int threshold) {
     if (read_adc(LEFT) > threshold) {
-        sensors->IR_L = true;
+        ir->left = true;
     }
     if (read_adc(RIGHT) > threshold) {
-        sensors->IR_R = true;
+        ir->right = true;
     }
 }
 
-void detect_beacon(Sensors_t* sensors) {
-//    sensors->BE = ~((PORTAbits.RA2 << 1) | PORTAbits.RA3);
-    sensors->BE_L = !(PORTAbits.RA2);
-    sensors->BE_R = !(PORTAbits.RA3);
+void detect_beacon(Beacon_t* beacons) {
+    beacons->left = !(PORTAbits.RA2);
+    beacons->right = !(PORTAbits.RA3);
+}
+
+void detect_encoder_change(Encoder_t* encoders) {
+//    encoders->left = (encoders->left + PORTCbits.RC0) % 255;
+//    encoders->right = (encoders->right + PORTCbits.RC5) % 255;
+    
+    if (PORTCbits.RC0 != encoders->left) {
+        encoders->left = (encoders->left + 1) % UINT16_MAX;
+    }
+    if (PORTCbits.RC5 != encoders->right) {
+        encoders->right = (encoders->right + 1) % UINT16_MAX;
+    }
 }

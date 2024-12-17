@@ -13,6 +13,7 @@
 
 #include "utils.h"
 #include "timing.h"
+#include "sensing.h"
 
 #define M_RIGHT_BACK LATBbits.LB0
 #define M_RIGHT_FORWARD LATBbits.LB1
@@ -35,6 +36,7 @@ void stop(void);
 void avoid_obstacle(short_t speed);
 void find_beacon(void);
 
+void test(Encoder_t* encoder);
 
 #endif	/* MOTION_H */
 

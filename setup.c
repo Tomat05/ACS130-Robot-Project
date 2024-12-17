@@ -13,9 +13,10 @@ void setup_io(void) {
     // Set I/O
     TRISA = 0b00001111;
     TRISB = 0b00000000;
-    TRISC = 0b00000000;
+    TRISC = 0b00100001;
     
-    // Set all i/o to 0 just in case
+    // Clear the i/o registers in case there are left-over values from the last run
+    // which seems to happen sometimes without this
     LATA = 0;
     LATB = 0;
     LATC = 0;

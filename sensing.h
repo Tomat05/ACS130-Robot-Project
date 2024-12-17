@@ -21,8 +21,9 @@
 
 int read_adc(short_t sensor);
 
-void detect_obstacle(Sensors_t* sensor, int threshold);
-void detect_beacon(Sensors_t* sensor);
+void detect_obstacle(Ir_t* ir, int threshold);
+void detect_beacon(Beacon_t* beacons);
+void detect_encoder_change(Encoder_t* encoders);
 
 #endif	/* SENSING_H */
 
